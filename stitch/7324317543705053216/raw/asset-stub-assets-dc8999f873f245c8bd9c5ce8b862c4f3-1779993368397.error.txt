@@ -1,0 +1,1 @@
+System.Management.Automation.RuntimeException: Command failed: npx @_davideast/stitch-mcp tool get_screen -f C:\Users\nikoe\OneDrive\Escritorio\synttek\pizza-ranch\ranch-web\stitch\7324317543705053216\requests\asset-stub-assets-dc8999f873f245c8bd9c5ce8b862c4f3-1779993368397.json -o json

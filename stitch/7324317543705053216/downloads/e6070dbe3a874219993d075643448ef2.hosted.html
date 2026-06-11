@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ranch VCP | Carta Digital</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#e0ffdf",
+                    "on-primary-fixed": "#261a00",
+                    "secondary-fixed": "#ffdf9f",
+                    "surface": "#131313",
+                    "on-primary-fixed-variant": "#5c4300",
+                    "on-error": "#690005",
+                    "secondary": "#f0c052",
+                    "surface-card": "#151515",
+                    "border-warm": "#1B130F",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#1c1b1b",
+                    "inverse-surface": "#e5e2e1",
+                    "tertiary-fixed-dim": "#3de273",
+                    "surface-bright": "#3a3939",
+                    "on-secondary-container": "#372700",
+                    "on-secondary": "#402d00",
+                    "surface-dim": "#131313",
+                    "surface-input": "#120D0A",
+                    "background": "#090909",
+                    "whatsapp-green": "#25D366",
+                    "surface-container-lowest": "#0e0e0e",
+                    "error": "#ffb4ab",
+                    "outline": "#9a8f7f",
+                    "on-tertiary-container": "#006f30",
+                    "on-background": "#e5e2e1",
+                    "secondary-fixed-dim": "#f0c052",
+                    "surface-tint": "#e9c16c",
+                    "tertiary-container": "#57f785",
+                    "surface-variant": "#353534",
+                    "surface-container-highest": "#353534",
+                    "on-surface-variant": "#d1c5b3",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "outline-variant": "#4e4638",
+                    "on-tertiary-fixed": "#002109",
+                    "text-muted": "#d2c5b0",
+                    "on-primary-container": "#795b0d",
+                    "error-container": "#93000a",
+                    "primary": "#fff6ea",
+                    "gold": "#E8B84B",
+                    "primary-fixed-dim": "#e9c16c",
+                    "surface-container": "#201f1f",
+                    "secondary-container": "#b58a1f",
+                    "inverse-on-surface": "#313030",
+                    "on-surface": "#e5e2e1",
+                    "inverse-primary": "#785a0c",
+                    "primary-container": "#ffd57e",
+                    "surface-container-high": "#2a2a2a",
+                    "on-secondary-fixed": "#261a00",
+                    "on-primary": "#402d00",
+                    "primary-fixed": "#ffdf9f",
+                    "on-tertiary-fixed-variant": "#005322",
+                    "tertiary-fixed": "#66ff8e",
+                    "on-tertiary": "#003915"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "sm": "12px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "md": "24px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Bebas Neue"],
+                    "headline-lg": ["Bebas Neue"],
+                    "headline-md": ["Bebas Neue"],
+                    "label-md": ["DM Sans"],
+                    "body-md": ["DM Sans"],
+                    "body-lg": ["DM Sans"],
+                    "title-lg": ["DM Sans"],
+                    "caption": ["DM Sans"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["40px", {"lineHeight": "44px", "letterSpacing": "0.03em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "0.03em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "display-lg": ["80px", {"lineHeight": "80px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #090909;
+            color: #e5e2e1;
+            scroll-behavior: smooth;
+        }
+        .glass-nav {
+            background: rgba(19, 19, 19, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(232, 184, 75, 0.2);
+        }
+        .gold-glow-text {
+            text-shadow: 0 0 10px rgba(232, 184, 75, 0.4);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            border-color: #E8B84B;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Header Section -->
+<header class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-outline-variant/30 px-lg py-md flex justify-between items-center max-w-container-max mx-auto left-1/2 -translate-x-1/2">
+<div class="flex items-center gap-xl">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tighter">Ranch VCP</h1>
+<nav class="hidden md:flex gap-md">
+<a class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors" href="#">Inicio</a>
+<a class="font-label-md text-label-md uppercase tracking-widest text-primary border-b-2 border-primary pb-1" href="#">Menú</a>
+<a class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors" href="#">Reservas</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="relative flex items-center gap-xs px-md py-sm bg-surface-container-high rounded transition-all active:scale-95 group">
+<span class="material-symbols-outlined text-gold">shopping_cart</span>
+<span class="font-label-md text-label-md uppercase tracking-widest text-on-surface group-hover:text-gold transition-colors">Ver pedido</span>
+<span class="absolute -top-1 -right-1 bg-gold text-on-primary-fixed w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-full">3</span>
+</button>
+<button class="bg-whatsapp-green text-on-tertiary-fixed font-label-md text-label-md uppercase tracking-widest px-md py-sm rounded-lg flex items-center gap-xs hover:opacity-90 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+                Pedir ahora
+            </button>
+</div>
+</header>
+<main class="mt-[100px] max-w-container-max mx-auto px-lg">
+<!-- Hero Compacto -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-lg items-center py-xl">
+<div class="space-y-md">
+<span class="font-label-md text-label-md uppercase tracking-[0.3em] text-gold gold-glow-text">Gastronomía Industrial</span>
+<h2 class="font-display-lg text-display-lg leading-tight italic uppercase text-primary">Armá tu pedido<br/><span class="text-gold">Ranch</span></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[480px]">Comida fuerte para noches con hambre. Elegí tus favoritos y te los llevamos volando.</p>
+</div>
+<div class="relative h-[400px] rounded-xl overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A macro close-up of a juicy premium cheeseburger with melted cheddar cheese dripping down the side. The burger is placed on a dark wooden board with tendrils of steam rising around it against a pitch-black background. High-contrast amber lighting highlights the textures of the brioche bun and the seared meat, creating a cinematic and high-energy food aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUJppTdYqnSLM3JHIVOafUaCbmh8umnERz5XWNCIkR2EuEEFAgMi6kEXpqcSGK3tWXYjrRCQ18lz5BzLICVXGudhJTQRvz5d-CJP-iQKh5qo56sDHV_yXQhA9vKqFCjsWQO8wYzfQpAfUHXNS_GhFiV2BCdXuJC3uE-mk9CgLzJ-9dtFc-_oItC4TLU0x04nH3CZ3ADYkJYbqE4MyfoSnvF4bXttl79GOKp4RKpeUb_YghuDXgiNXqMzdjPyWjCafJtIOOv3qnoPU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+</section>
+<!-- Selector de Sucursal -->
+<section class="pb-xl">
+<div class="flex flex-col gap-sm">
+<p class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Seleccioná tu sucursal</p>
+<div class="flex gap-md">
+<button class="flex-1 max-w-[200px] bg-surface-card border-2 border-gold p-md rounded-xl flex items-center gap-md group gold-glow">
+<div class="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-gold">location_on</span>
+</div>
+<div class="text-left">
+<p class="font-title-lg text-title-lg text-primary">Uruguay</p>
+<p class="font-caption text-caption text-gold uppercase tracking-tighter">Seleccionado</p>
+</div>
+</button>
+<button class="flex-1 max-w-[200px] bg-surface-card border border-border-warm p-md rounded-xl flex items-center gap-md hover:border-outline-variant transition-colors group">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-gold transition-colors">location_on</span>
+</div>
+<div class="text-left">
+<p class="font-title-lg text-title-lg text-on-surface-variant group-hover:text-primary transition-colors">Libertad</p>
+<p class="font-caption text-caption text-on-surface-variant">Córdoba, AR</p>
+</div>
+</button>
+</div>
+</div>
+</section>
+<!-- Barra de Categorías Sticky -->
+<div class="sticky top-[88px] z-40 bg-background/95 backdrop-blur-md -mx-lg px-lg py-md border-b border-border-warm mb-xl overflow-x-auto no-scrollbar">
+<div class="flex gap-xl min-w-max">
+<a class="font-headline-md text-headline-md uppercase text-gold border-b-2 border-gold pb-1 tracking-wider" href="#burgers">Burgers</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface-variant hover:text-primary transition-colors tracking-wider" href="#pizzas">Pizzas</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface-variant hover:text-primary transition-colors tracking-wider" href="#lomos">Lomos</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface-variant hover:text-primary transition-colors tracking-wider" href="#empanadas">Empanadas</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface-variant hover:text-primary transition-colors tracking-wider" href="#pastas">Pastas</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface-variant hover:text-primary transition-colors tracking-wider" href="#bebidas">Bebidas</a>
+</div>
+</div>
+<!-- Cuerpo Principal -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl pb-xl">
+<!-- Listado de Productos -->
+<div class="lg:col-span-8 space-y-xl">
+<!-- Category: Burgers -->
+<div class="space-y-md" id="burgers">
+<h3 class="font-headline-lg text-headline-lg text-primary italic uppercase flex items-center gap-md">
+<span class="w-8 h-[2px] bg-gold"></span> Burgers
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Product Card 1 -->
+<div class="bg-surface-card border border-border-warm rounded-xl overflow-hidden card-hover transition-all flex flex-col group">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A gourmet cheeseburger with multiple layers of flame-grilled beef patties, melting yellow cheese, and fresh greens. The image is shot in a dark, moody environment with dramatic warm key lighting highlighting the glistening oils and meat textures. Deep black background with a subtle wooden surface below, perfectly matching the RANCH VCP industrial gastro aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi9h1t5gKTA8EtuQ-Ji2rQxVyBSFGjp2yulHytxsuG7Nm6fIo79kIU2hk9-p1tilTelxY1UPVGJMrs-u_jX7EGHewxS6VzWIW5-v04uYy9PYyEvR7uo60j3ymaZrnWT5h35e7obqkF-8ECv3soQRkkqzQ0LpWO6Hpj051Z9lSE4Wxi0poA_XvyH3pa7lFC26_C3mCksARX0NfqxovDqizrZi5Y0eujIWsbbLsP-Oj03JBYUOjo8ySERAfwFuBa37EuLF7aF_gZ3Bw"/>
+</div>
+<div class="p-md flex flex-col flex-1 gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-title-lg text-title-lg text-primary">Ranch Burger</h4>
+<span class="font-headline-md text-headline-md text-gold">$8.900</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1 line-clamp-2">Doble medallón de carne, cheddar, cebolla caramelizada y salsa secreta Ranch.</p>
+<button class="mt-base w-full bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase tracking-widest py-sm rounded-lg flex items-center justify-center gap-sm active:scale-95 transition-transform hover:opacity-90 gold-glow">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                                    Agregar
+                                </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-card border border-border-warm rounded-xl overflow-hidden card-hover transition-all flex flex-col group">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A smoky, flame-grilled burger with thick bacon strips and melted cheese under a warm amber glow. The food is presented elegantly on a dark rustic surface against a deep black backdrop. Subtle golden highlights on the rim of the burger capture the essence of high-end late-night dining and aggressive, bold flavors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqzcgWY26LoxB7z3nXLoLVHSCEA4Ny2vC5RXIivPYIkiTWG_iodtPu7Q_DCxJMl8L_Oa7FUzyrMlaSmzffoprCoB7x0dvgt-PoYWWuevBq5qJmLXqqD2_RmYRNHDlyYyND6xEBv5GDjyWAHCFJerwkLiiH0jV_nQx4mR7O7RcDvLnoU17d-z-HiKbDvINnL51WErAn6DAoXGUTErrzIDz3-wwOLLOmvRtC_Qh1VjgwQrQPIa9TMYQp_TWJnPf-4KSUzN9-LRK811I"/>
+</div>
+<div class="p-md flex flex-col flex-1 gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-title-lg text-title-lg text-primary">Smoky Burger</h4>
+<span class="font-headline-md text-headline-md text-gold">$9.400</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1 line-clamp-2">Medallón de 180g, panceta ahumada, alioli y provolone fundido.</p>
+<button class="mt-base w-full bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase tracking-widest py-sm rounded-lg flex items-center justify-center gap-sm active:scale-95 transition-transform hover:opacity-90 gold-glow">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                                    Agregar
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Pizzas -->
+<div class="space-y-md" id="pizzas">
+<h3 class="font-headline-lg text-headline-lg text-primary italic uppercase flex items-center gap-md">
+<span class="w-8 h-[2px] bg-gold"></span> Pizzas
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Product Card 3 -->
+<div class="bg-surface-card border border-border-warm rounded-xl overflow-hidden card-hover transition-all flex flex-col group">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A crispy pepperoni pizza with melting mozzarella cheese and fresh basil leaves on top. The crust is perfectly charred, indicating a wood-fired oven. The lighting is focused and warm, creating high-contrast shadows against the dark surroundings, giving the food a premium and appetizing glow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrOEIIzXGTjrsiNhhwer7Jt6yQglOrU6GP5V9zEm8hA0Ijf9Pq86TBs-kAMjymAr5-XBjAMCrZPpB5bzIat7QuRDmG0X-FlwgcgTBym_j02Mid2NchlysaPy7FRnXGqUKixxWP_MEM8M7WRiZ7sFOo3fI21tprH4RPTQqVKauONdJjPARhdmI0C68EAxBrO9C0Tn_1u5iCZfjDdIh6Mn0E0vBostAj8iAFPqUWkbg12gFU0zBECZLYk9bL--xQrQk3hQtGWPVDSvM"/>
+</div>
+<div class="p-md flex flex-col flex-1 gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-title-lg text-title-lg text-primary">Pizza Ranch</h4>
+<span class="font-headline-md text-headline-md text-gold">$10.500</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1 line-clamp-2">Salsa de la casa, muzzarella premium, pepperoni y albahaca fresca.</p>
+<button class="mt-base w-full bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase tracking-widest py-sm rounded-lg flex items-center justify-center gap-sm active:scale-95 transition-transform hover:opacity-90 gold-glow">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                                    Agregar
+                                </button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-card border border-border-warm rounded-xl overflow-hidden card-hover transition-all flex flex-col group">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Classic mozzarella pizza with a thick, golden-brown crust and bubbling cheese. Shot from a top-down angle with dramatic side lighting that creates depth and texture on the melted cheese. Set on a dark granite surface, maintaining the bold, monochromatic theme of the restaurant with golden accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbdD2UVzER_LqcP5h3TvVWHv1Tu_RUrjILO2udstiCIEk-dZ4lVGmKWxWh599yIguHMpwHeyz57G3cq0JJAWhBUY9VFvzCNjRvmekgWpv-sXJvuWHcNNOuo8DRfL_wR3ci4fgLxt9ZyheoONU8N7YXtW6H-KWfh724gykL9OJEUTrX_M8oJOa67qXTmUvCwuu3-Gv9xNjduWDeUPJB3EO-k6zWEjZ49WWXsM6NLxRni5ZGEmT5x8IUtRxsulpjhSQBzORpO0HVVts"/>
+</div>
+<div class="p-md flex flex-col flex-1 gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-title-lg text-title-lg text-primary">Muzzarella</h4>
+<span class="font-headline-md text-headline-md text-gold">$7.800</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1 line-clamp-2">Un clásico infaltable: muzzarella fundida, aceitunas y orégano.</p>
+<button class="mt-base w-full bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase tracking-widest py-sm rounded-lg flex items-center justify-center gap-sm active:scale-95 transition-transform hover:opacity-90 gold-glow">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                                    Agregar
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Lomos -->
+<div class="space-y-md" id="lomos">
+<h3 class="font-headline-lg text-headline-lg text-primary italic uppercase flex items-center gap-md">
+<span class="w-8 h-[2px] bg-gold"></span> Lomos
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-card border border-border-warm rounded-xl overflow-hidden card-hover transition-all flex flex-col group">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A large, rustic steak sandwich known as a Lomo, featuring thinly sliced tenderloin, fried egg, lettuce, tomato, and melted cheese between toasted artisanal bread. The sandwich is stacked high and presented on a dark board with warm lighting that creates a cozy yet intense late-night vibe. The style is moody and high-contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADWXCKbiaslyNvBEk-2GyOK9ojvhmxLtvUy9ivakW4eMw1nNuwtFPcVt6a7VWE6M8_fXQkSV67FeSU86y39hVxOpGTaHjZPCAiRn5gwL5HTaJuFrUrUsE3R8G4aKd2h7uuG4vzP-pwGmx1zl1wKaVfgAORQHpqWoALSClM7tA00MHSNRpDRrpovMQy1HBjw-V05s-bDWF9uxZr-yXvzAgzuQxrxRhpep1NdXiDoVY_ULuTKaEuBm_yDFle_Wk6bFo0BBmWFNbQ7io"/>
+</div>
+<div class="p-md flex flex-col flex-1 gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-title-lg text-title-lg text-primary">Lomo Ranch</h4>
+<span class="font-headline-md text-headline-md text-gold">$10.900</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1 line-clamp-2">Tierno lomo, huevo, lechuga, tomate, muzzarella y jamón.</p>
+<button class="mt-base w-full bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase tracking-widest py-sm rounded-lg flex items-center justify-center gap-sm active:scale-95 transition-transform hover:opacity-90 gold-glow">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                                    Agregar
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Sticky (Tu Pedido) -->
+<aside class="lg:col-span-4">
+<div class="sticky top-[160px] bg-surface-card border border-gold/30 rounded-xl flex flex-col p-md gold-glow">
+<div class="flex items-center justify-between border-b border-border-warm pb-md mb-md">
+<h3 class="font-headline-md text-headline-md text-primary tracking-wider flex items-center gap-sm">
+<span class="material-symbols-outlined text-gold">shopping_basket</span>
+                            Tu pedido
+                        </h3>
+<span class="font-caption text-caption text-gold bg-gold/10 px-sm py-1 rounded-full uppercase">3 items</span>
+</div>
+<!-- Items List -->
+<div class="space-y-md max-h-[400px] overflow-y-auto no-scrollbar mb-lg">
+<!-- Item 1 -->
+<div class="flex gap-sm">
+<div class="w-16 h-16 rounded overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVmhk0jtPuDbMFJkpGlmqtSAWDvkHGd17wR7dSVmAXoDW_cW25KxK73k2i8tm_Ztr3Lk6hcx6W0l26G6JWLdM9Qul_mzx_gRYfkGhOmfR_mssXuIEONh87XwhBHoaQnT6aq78Mr1wh5S9g9eAyrjvcXjvX21C2hsBVGrESnwiiAt6GP36G2n8ClDyJHv2l-bXeC8F9ufpIfF0WvWREJKGEOdm4870dZQWGa8puTw7XnGl1efStD9CBXLQ1fSDXAl5Re1XQJUAUN8g"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-title-lg text-body-md text-primary truncate">Ranch Burger</p>
+<p class="font-caption text-caption text-on-surface-variant">$8.900</p>
+<div class="flex items-center gap-md mt-1">
+<button class="w-6 h-6 rounded-full border border-outline-variant flex items-center justify-center hover:bg-gold hover:text-on-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="font-label-md text-label-md">1</span>
+<button class="w-6 h-6 rounded-full border border-outline-variant flex items-center justify-center hover:bg-gold hover:text-on-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-sm">
+<div class="w-16 h-16 rounded overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgttbUdyQwapsBKyY0-xNmbeqGKkSpb6LCZ9BGUq8Y3-0758qbRyu8-g31gODfya7ifdOApjVZ9Fe0guqaORYQ_mvofNnhueD95QrYbdKMAQ497-drz_L1aJocTjqWkdpKIehgd_M_hSzaw8ov6DnLR9cv-i_zhOo0XhWtmM7g40iFYjG2moUZ2LWkepgx78C2yotWQUPW0t1ts_738xEk7El8aej9Z6x8GmOdwHh6KaImBDVoYtWQTZZyPlHGybL5Mgt3ENfgE8E"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-title-lg text-body-md text-primary truncate">Pizza Ranch</p>
+<p class="font-caption text-caption text-on-surface-variant">$10.500</p>
+<div class="flex items-center gap-md mt-1">
+<button class="w-6 h-6 rounded-full border border-outline-variant flex items-center justify-center hover:bg-gold hover:text-on-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="font-label-md text-label-md">2</span>
+<button class="w-6 h-6 rounded-full border border-outline-variant flex items-center justify-center hover:bg-gold hover:text-on-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Order Options -->
+<div class="space-y-md border-t border-border-warm pt-md">
+<div class="flex gap-sm">
+<button class="flex-1 py-sm border-2 border-gold rounded-lg font-label-md text-label-md text-gold bg-gold/5">Retiro</button>
+<button class="flex-1 py-sm border border-border-warm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors">Delivery</button>
+</div>
+<div class="flex flex-col gap-xs pt-base">
+<div class="flex justify-between font-body-md text-on-surface-variant">
+<span>Subtotal</span>
+<span>$29.900</span>
+</div>
+<div class="flex justify-between font-title-lg text-primary text-lg">
+<span>Total</span>
+<span class="text-gold">$29.900</span>
+</div>
+</div>
+<button class="w-full bg-whatsapp-green text-on-tertiary-fixed font-headline-md text-headline-md uppercase tracking-wider py-md rounded-lg flex items-center justify-center gap-md hover:opacity-90 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+                            Finalizar por WhatsApp
+                        </button>
+<p class="font-caption text-caption text-center text-on-surface-variant italic">Serás redirigido para confirmar tu pedido.</p>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-lg grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto border-t border-outline-variant/20 bg-surface-container-lowest mt-xl">
+<div class="md:col-span-1 space-y-md">
+<h2 class="font-headline-md text-headline-md text-primary">Ranch VCP</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Ranch VCP. Comida fuerte para noches con hambre.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<p class="font-label-md text-label-md uppercase text-gold">Explorar</p>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Inicio</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Menú</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Reservas</a>
+</div>
+<div class="flex flex-col gap-sm">
+<p class="font-label-md text-label-md uppercase text-gold">Sucursales</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Uruguay - Av. Principal 123</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Libertad - Esquina Calma 456</p>
+</div>
+<div class="flex flex-col gap-sm">
+<p class="font-label-md text-label-md uppercase text-gold">Legal</p>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Términos y Condiciones</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Política de Privacidad</a>
+</div>
+</footer>
+<script>
+        // Smooth transition for category links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const headerOffset = 180;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+
+                // Update active state in category bar
+                document.querySelectorAll('.sticky.top-\\[88px\\] a').forEach(link => {
+                    link.classList.remove('text-gold', 'border-b-2', 'border-gold');
+                    link.classList.add('text-on-surface-variant');
+                });
+                this.classList.add('text-gold', 'border-b-2', 'border-gold');
+                this.classList.remove('text-on-surface-variant');
+            });
+        });
+
+        // Simple scroll spy for category highligthing (conceptual)
+        window.addEventListener('scroll', () => {
+            const sections = ['burgers', 'pizzas', 'lomos'];
+            let current = "";
+            
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if(element) {
+                    const sectionTop = element.offsetTop - 200;
+                    if(pageYOffset >= sectionTop) {
+                        current = section;
+                    }
+                }
+            });
+
+            if(current) {
+                document.querySelectorAll('.sticky.top-\\[88px\\] a').forEach(link => {
+                    link.classList.remove('text-gold', 'border-b-2', 'border-gold');
+                    link.classList.add('text-on-surface-variant');
+                    if(link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('text-gold', 'border-b-2', 'border-gold');
+                        link.classList.remove('text-on-surface-variant');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

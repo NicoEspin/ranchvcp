@@ -1,0 +1,58 @@
+[
+    {
+        "screenId":  "e6070dbe3a874219993d075643448ef2",
+        "metadata":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\raw\\e6070dbe3a874219993d075643448ef2.get_screen.json",
+        "html":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\e6070dbe3a874219993d075643448ef2.html",
+        "screenshot":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\e6070dbe3a874219993d075643448ef2.png",
+        "error":  null
+    },
+    {
+        "screenId":  "asset-stub-assets-dc8999f873f245c8bd9c5ce8b862c4f3-1779993368397",
+        "metadata":  null,
+        "html":  null,
+        "screenshot":  null,
+        "error":  "Command failed: npx @_davideast/stitch-mcp tool get_screen -f C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\requests\\asset-stub-assets-dc8999f873f245c8bd9c5ce8b862c4f3-1779993368397.json -o json"
+    },
+    {
+        "screenId":  "26ac5db54d3b4ae18fb13c1f798fc38b",
+        "metadata":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\raw\\26ac5db54d3b4ae18fb13c1f798fc38b.get_screen.json",
+        "html":  null,
+        "screenshot":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\26ac5db54d3b4ae18fb13c1f798fc38b.png",
+        "error":  null
+    },
+    {
+        "screenId":  "5af33309726a420bb190470690a2a3eb",
+        "metadata":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\raw\\5af33309726a420bb190470690a2a3eb.get_screen.json",
+        "html":  null,
+        "screenshot":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\5af33309726a420bb190470690a2a3eb.png",
+        "error":  null
+    },
+    {
+        "screenId":  "daf67fe4f42a47d1870f49dc82e658f9",
+        "metadata":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\raw\\daf67fe4f42a47d1870f49dc82e658f9.get_screen.json",
+        "html":  null,
+        "screenshot":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\daf67fe4f42a47d1870f49dc82e658f9.png",
+        "error":  null
+    },
+    {
+        "screenId":  "377ce35716094fedbdae92da70950691",
+        "metadata":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\raw\\377ce35716094fedbdae92da70950691.get_screen.json",
+        "html":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\377ce35716094fedbdae92da70950691.html",
+        "screenshot":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\377ce35716094fedbdae92da70950691.png",
+        "error":  null
+    },
+    {
+        "screenId":  "92843f35d0364f5d934687bce0b55b33",
+        "metadata":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\raw\\92843f35d0364f5d934687bce0b55b33.get_screen.json",
+        "html":  null,
+        "screenshot":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\92843f35d0364f5d934687bce0b55b33.png",
+        "error":  null
+    },
+    {
+        "screenId":  "d4fafbdca4e9412b8dda1815eaa87c5f",
+        "metadata":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\raw\\d4fafbdca4e9412b8dda1815eaa87c5f.get_screen.json",
+        "html":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\d4fafbdca4e9412b8dda1815eaa87c5f.html",
+        "screenshot":  "C:\\Users\\nikoe\\OneDrive\\Escritorio\\synttek\\pizza-ranch\\ranch-web\\stitch\\7324317543705053216\\downloads\\d4fafbdca4e9412b8dda1815eaa87c5f.png",
+        "error":  null
+    }
+]

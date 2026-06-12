@@ -1,8 +1,21 @@
-import type { OrderItem } from '@/types/restaurant'
-import { restaurantSettings } from './mock-data'
+import type { OrderItem, RestaurantLocation } from '@/types/restaurant'
+import { locations, restaurantSettings } from './mock-data'
 import { formatPrice } from './formatters'
 
-const WHATSAPP_NUMBER = restaurantSettings.whatsapp.replace(/\D/g, '')
+export const primaryLocation: RestaurantLocation =
+  locations.find((location) => location.isPrimary) ?? locations[0]
+
+export function getLocationMapsUrl(location: RestaurantLocation): string {
+  return `https://www.google.com/maps/search/?api=1&query=${location.coordinates.lat},${location.coordinates.lng}`
+}
+
+export function getLocationEmbedUrl(location: RestaurantLocation): string {
+  return `https://maps.google.com/maps?q=${location.coordinates.lat},${location.coordinates.lng}&z=16&hl=es&output=embed`
+}
+
+function buildWhatsAppUrl(location: RestaurantLocation, message: string): string {
+  return `https://wa.me/${location.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`
+}
 
 function getRemovedIngredientsLabel(item: OrderItem): string | null {
   const removedIngredients = item.menuItem.ingredients
@@ -22,9 +35,11 @@ export function generateReservationMessage(data: {
   time: string
   people: number
   comment?: string
+  location: RestaurantLocation
 }): string {
   const message = `Hola! Quiero hacer una reserva.
 
+*Sucursal:* ${data.location.name}
 *Nombre:* ${data.name}
 *Personas:* ${data.people}
 *Día:* ${data.date}
@@ -33,7 +48,7 @@ export function generateReservationMessage(data: {
 
   Vengo desde la web de ${restaurantSettings.name}.`
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  return buildWhatsAppUrl(data.location, message)
 }
 
 export function generateOrderMessage(data: {
@@ -41,6 +56,7 @@ export function generateOrderMessage(data: {
   total: number
   name: string
   orderType: 'delivery' | 'pickup'
+  location: RestaurantLocation
   address?: string
   comment?: string
 }): string {
@@ -54,11 +70,12 @@ export function generateOrderMessage(data: {
 
   const orderTypeText = {
     'delivery': 'Envío a domicilio',
-    'pickup': 'Retiro en local',
+    'pickup': `Retiro en ${data.location.name}`,
   }[data.orderType]
 
   const message = `Hola! Quiero hacer este pedido:
 
+*Sucursal:* ${data.location.name}
 *Nombre:* ${data.name}
 *Tipo:* ${orderTypeText}${data.address ? `
 *Dirección:* ${data.address}` : ''}
@@ -71,18 +88,23 @@ ${itemsList}
 
   Vengo desde la web de ${restaurantSettings.name}.`
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  return buildWhatsAppUrl(data.location, message)
 }
 
-export function generateInquiryMessage(dishName: string): string {
+export function generateInquiryMessage(
+  dishName: string,
+  location: RestaurantLocation = primaryLocation,
+): string {
   const message = `Hola! Tengo una consulta sobre el plato "${dishName}".
 
   Vengo desde la web de ${restaurantSettings.name}.`
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  return buildWhatsAppUrl(location, message)
 }
 
-export function generateGeneralMessage(): string {
+export function generateGeneralMessage(
+  location: RestaurantLocation = primaryLocation,
+): string {
   const message = `Hola! Vengo desde la web de ${restaurantSettings.name}.`
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  return buildWhatsAppUrl(location, message)
 }

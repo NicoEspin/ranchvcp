@@ -1,211 +1,311 @@
 'use client'
 
 import { useState } from 'react'
-import { User, Calendar, Clock, Users, MessageSquare, Send } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowUpRight, MapPin, Send } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { generateReservationMessage } from '@/lib/whatsapp'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { MaskReveal, Reveal } from '@/components/motion'
+import { homeCopy } from '@/lib/home-copy'
+import { locations } from '@/lib/mock-data'
+import {
+  generateReservationMessage,
+  getLocationEmbedUrl,
+  getLocationMapsUrl,
+  primaryLocation,
+} from '@/lib/whatsapp'
+
+const LUNCH_SLOTS = ['12:30', '13:00', '13:30', '14:00', '14:30', '15:00']
+const NIGHT_SLOTS = ['20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30']
+const PEOPLE_OPTIONS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Más de 10']
+
+const reservationSchema = z.object({
+  name: z.string().trim().min(1, 'Ingresá tu nombre.'),
+  people: z.string().min(1, 'Indicá cuántos son.'),
+  date: z.string().min(1, 'Elegí el día.'),
+  time: z.string().min(1, 'Elegí la hora.'),
+  comment: z.string().trim().optional(),
+})
+
+type ReservationValues = z.infer<typeof reservationSchema>
 
 export function ReservationSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    date: '',
-    time: '',
-    people: '2',
-    comment: '',
-  })
+  const [locationId, setLocationId] = useState(primaryLocation.id)
+  const [mapActive, setMapActive] = useState(false)
+  const selectedLocation =
+    locations.find((location) => location.id === locationId) ?? primaryLocation
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const url = generateReservationMessage({
-      name: formData.name,
-      date: formData.date,
-      time: formData.time,
-      people: parseInt(formData.people),
-      comment: formData.comment,
-    })
-    window.open(url, '_blank')
-  }
+  const form = useForm<ReservationValues>({
+    resolver: zodResolver(reservationSchema),
+    defaultValues: { name: '', people: '2', date: '', time: '', comment: '' },
+  })
 
   const today = new Date().toISOString().split('T')[0]
 
+  const handleSubmit = (values: ReservationValues) => {
+    const url = generateReservationMessage({
+      name: values.name,
+      date: values.date,
+      time: values.time,
+      people: Number.parseInt(values.people, 10) || 11,
+      comment: values.comment,
+      location: selectedLocation,
+    })
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
   return (
-    <section id="reservas" className="scroll-mt-24 bg-background-alt py-16 md:scroll-mt-28 md:py-24">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-4 text-balance">
-              Reservar no tiene que empezar con veinte mensajes.
-            </h2>
-            <p className="text-foreground-muted max-w-2xl mx-auto mb-2">
-              Completá los datos básicos y enviá una solicitud clara por WhatsApp.
+    <section id="salon" className="section-shell py-12 md:py-16">
+      <div className="border-t border-border/70 pt-12">
+        {/* ── Header ── */}
+        <div id="reservas" className="mb-10 max-w-2xl space-y-6">
+          <Reveal y={14}>
+            <p className="eyebrow">{homeCopy.reservation.eyebrow}</p>
+          </Reveal>
+          <h2 className="font-serif text-[clamp(2.6rem,6vw,4.5rem)] uppercase leading-[0.92] tracking-[0.04em] text-foreground">
+            <MaskReveal>{homeCopy.reservation.title[0]}</MaskReveal>
+            <MaskReveal delay={0.12} className="mt-3 text-primary">
+              {homeCopy.reservation.title[1]}
+            </MaskReveal>
+          </h2>
+          <Reveal delay={0.18}>
+            <p className="max-w-xl text-base leading-7 text-foreground-muted">
+              {homeCopy.reservation.description}
             </p>
-            <p className="text-sm text-foreground-muted max-w-xl mx-auto">
-              El restaurante recibe tu nombre, día, horario, cantidad de personas y cualquier detalle importante en un solo mensaje.
-            </p>
-          </div>
+          </Reveal>
+        </div>
 
-          {/* Form Card */}
-          <div className="glass-card rounded-2xl p-6 md:p-8">
-            {/* Notice */}
-            <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 mb-8">
-              <p className="text-sm text-foreground-muted">
-                <strong className="text-foreground">Importante:</strong> Esto no confirma automáticamente la mesa. Ordena la solicitud para que el equipo pueda responder mejor.
-              </p>
-            </div>
-
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Name */}
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm text-foreground-muted flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    Nombre
-                  </label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Tu nombre"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="h-12 bg-input border-border text-foreground placeholder:text-foreground-muted/50 focus:border-primary"
-                  />
-                </div>
-
-                {/* People */}
-                <div className="space-y-2">
-                  <label htmlFor="people" className="text-sm text-foreground-muted flex items-center gap-2">
-                    <Users className="w-4 h-4" />
-                    Personas
-                  </label>
-                  <select
-                    id="people"
-                    value={formData.people}
-                    onChange={(e) => setFormData({ ...formData, people: e.target.value })}
-                    required
-                    className="w-full h-12 bg-input border border-border rounded-lg px-4 text-foreground focus:border-primary focus:outline-none"
-                  >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                      <option key={n} value={n}>
-                        {n} {n === 1 ? 'persona' : 'personas'}
-                      </option>
-                    ))}
-                    <option value="more">Más de 10</option>
-                  </select>
-                </div>
-
-                {/* Date */}
-                <div className="space-y-2">
-                  <label htmlFor="date" className="text-sm text-foreground-muted flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Fecha
-                  </label>
-                  <Input
-                    id="date"
-                    type="date"
-                    min={today}
-                    value={formData.date}
-                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    required
-                    className="h-12 bg-input border-border text-foreground focus:border-primary"
-                  />
-                </div>
-
-                {/* Time */}
-                <div className="space-y-2">
-                  <label htmlFor="time" className="text-sm text-foreground-muted flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    Hora
-                  </label>
-                  <select
-                    id="time"
-                    value={formData.time}
-                    onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    required
-                    className="w-full h-12 bg-input border border-border rounded-lg px-4 text-foreground focus:border-primary focus:outline-none"
-                  >
-                    <option value="">Seleccionar hora</option>
-                    <optgroup label="Mediodía">
-                      <option value="12:00">12:00</option>
-                      <option value="12:30">12:30</option>
-                      <option value="13:00">13:00</option>
-                      <option value="13:30">13:30</option>
-                      <option value="14:00">14:00</option>
-                      <option value="14:30">14:30</option>
-                      <option value="15:00">15:00</option>
-                    </optgroup>
-                    <optgroup label="Noche">
-                      <option value="20:00">20:00</option>
-                      <option value="20:30">20:30</option>
-                      <option value="21:00">21:00</option>
-                      <option value="21:30">21:30</option>
-                      <option value="22:00">22:00</option>
-                      <option value="22:30">22:30</option>
-                      <option value="23:00">23:00</option>
-                    </optgroup>
-                  </select>
-                </div>
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+          {/* ── Formulario ── */}
+          <Reveal y={30}>
+            <div className="editorial-card rounded-[2rem] p-5 md:p-7">
+              {/* Selector de sucursal */}
+              <p className="text-xs uppercase tracking-[0.24em] text-primary">Elegí la sucursal</p>
+              <div role="radiogroup" aria-label="Sucursal" className="mt-3 grid gap-3 sm:grid-cols-2">
+                {locations.map((location) => {
+                  const isSelected = location.id === locationId
+                  return (
+                    <button
+                      key={location.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={isSelected}
+                      onClick={() => setLocationId(location.id)}
+                      className={`rounded-[1.25rem] border p-4 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                        isSelected
+                          ? 'border-primary/70 bg-primary/10'
+                          : 'border-border bg-background/40 hover:border-primary/40'
+                      }`}
+                    >
+                      <span className="flex items-center justify-between gap-3">
+                        <span className="font-serif text-lg uppercase tracking-[0.04em] text-foreground">
+                          {location.name}
+                        </span>
+                        <span
+                          aria-hidden
+                          className={`size-2.5 shrink-0 rounded-full transition-colors ${
+                            isSelected ? 'bg-primary' : 'border border-border'
+                          }`}
+                        />
+                      </span>
+                      <span className="mt-1 block text-xs leading-5 text-foreground-muted">
+                        {location.address}
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
 
-              {/* Comment */}
-              <div className="space-y-2">
-                <label htmlFor="comment" className="text-sm text-foreground-muted flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" />
-                  Comentario (opcional)
-                </label>
-                <textarea
-                  id="comment"
-                  placeholder="Cumpleaños, mesa afuera, silla para bebé..."
-                  value={formData.comment}
-                  onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                  rows={3}
-                  className="w-full bg-input border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-foreground-muted/50 focus:border-primary focus:outline-none resize-none"
-                />
-              </div>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(handleSubmit)} className="mt-6 space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nombre</FormLabel>
+                          <FormControl>
+                            <Input {...field} autoComplete="name" placeholder="Tu nombre" className="h-11" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="people"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Personas</FormLabel>
+                          <FormControl>
+                            <Select value={field.value} onValueChange={field.onChange}>
+                              <SelectTrigger className="h-11 w-full">
+                                <SelectValue placeholder="¿Cuántos son?" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {PEOPLE_OPTIONS.map((option) => (
+                                  <SelectItem key={option} value={option}>
+                                    {option === '1' ? '1 persona' : option === 'Más de 10' ? option : `${option} personas`}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="date"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Fecha</FormLabel>
+                          <FormControl>
+                            <Input {...field} type="date" min={today} className="h-11" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="time"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Hora</FormLabel>
+                          <FormControl>
+                            <Select value={field.value} onValueChange={field.onChange}>
+                              <SelectTrigger className="h-11 w-full">
+                                <SelectValue placeholder="Elegí la hora" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Mediodía</SelectLabel>
+                                  {LUNCH_SLOTS.map((slot) => (
+                                    <SelectItem key={slot} value={slot}>{slot}</SelectItem>
+                                  ))}
+                                </SelectGroup>
+                                <SelectGroup>
+                                  <SelectLabel>Noche</SelectLabel>
+                                  {NIGHT_SLOTS.map((slot) => (
+                                    <SelectItem key={slot} value={slot}>{slot}</SelectItem>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
-              {/* Submit */}
-              <Button
-                type="submit"
-                className="w-full h-14 bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 text-base"
-              >
-                <Send className="w-5 h-5 mr-2" />
-                Solicitar reserva por WhatsApp
-              </Button>
-            </form>
+                  <FormField
+                    control={form.control}
+                    name="comment"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Comentario (opcional)</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            rows={3}
+                            placeholder="Cumpleaños, mesa afuera, silla para bebé…"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-            {/* Bullets */}
-            <div className="mt-8 pt-6 border-t border-border">
-              <p className="text-sm text-foreground-muted mb-4">Tu solicitud incluye:</p>
-              <ul className="grid sm:grid-cols-2 gap-2 text-sm text-foreground-muted">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  Nombre y cantidad de personas
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  Día y horario
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  Comentario especial
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  Mensaje prearmado
-                </li>
-              </ul>
+                  <button type="submit" className="cta-primary cta-block">
+                    <Send className="size-4" />
+                    <span>Reservar en {selectedLocation.name}</span>
+                  </button>
+                  <p className="text-center font-mono text-[0.58rem] uppercase tracking-[0.2em] text-foreground-muted/50">
+                  El local confirma por WhatsApp
+                  </p>
+                </form>
+              </Form>
             </div>
-          </div>
+          </Reveal>
 
-          {/* Memorable Quote */}
-          <div className="text-center mt-12">
-            <p className="text-foreground-muted italic">
-              &ldquo;Una buena reserva empieza con una conversación clara.&rdquo;
-            </p>
-          </div>
+          {/* ── Mapa de la sucursal ── */}
+          <Reveal y={30} delay={0.12}>
+            <div className="editorial-card relative h-full min-h-[24rem] overflow-hidden rounded-[2rem] lg:min-h-full">
+              <iframe
+                key={selectedLocation.id}
+                src={getLocationEmbedUrl(selectedLocation)}
+                title={`Mapa de Ranch — ${selectedLocation.name}`}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                className="ranch-map absolute inset-0 h-full w-full border-0"
+                style={{ pointerEvents: mapActive ? 'auto' : 'none' }}
+              />
+
+              {/* Guarda de scroll: el iframe captura la rueda; se activa con un toque */}
+              {!mapActive ? (
+                <button
+                  type="button"
+                  onClick={() => setMapActive(true)}
+                  className="group absolute inset-0 flex items-end justify-center bg-transparent pb-24 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary"
+                  aria-label="Activar la exploración del mapa"
+                >
+                  <span className="editorial-chip text-[0.62rem] uppercase tracking-[0.2em] text-primary opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                    Tocá para explorar el mapa
+                  </span>
+                </button>
+              ) : null}
+
+              {/* Info de la sucursal seleccionada */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 md:p-5">
+                <div className="pointer-events-auto flex flex-wrap items-center justify-between gap-3 rounded-[1.4rem] border border-primary/15 bg-black/70 p-4 backdrop-blur-md">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
+                    <div>
+                      <p className="font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary">
+                        {selectedLocation.name}
+                      </p>
+                      <p className="mt-1 text-sm leading-5 text-foreground-muted">
+                        {selectedLocation.address}
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href={getLocationMapsUrl(selectedLocation)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cta-ghost cta-sm"
+                  >
+                    <span>Cómo llegar</span>
+                    <ArrowUpRight className="size-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

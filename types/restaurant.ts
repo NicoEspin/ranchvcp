@@ -1,3 +1,13 @@
+export interface RestaurantLocation {
+  id: string
+  name: string
+  address: string
+  /** Número en formato wa.me: 549 + área + número */
+  whatsapp: string
+  coordinates: { lat: number; lng: number }
+  isPrimary?: boolean
+}
+
 export interface RestaurantSettings {
   name: string
   tagline: string

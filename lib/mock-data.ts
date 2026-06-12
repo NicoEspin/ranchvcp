@@ -5,17 +5,37 @@ import type {
   MenuItem,
   OpeningHour,
   Promotion,
+  RestaurantLocation,
   RestaurantSettings,
   Review,
 } from '@/types/restaurant'
+
+// La primera sucursal marcada con isPrimary recibe consultas generales y pedidos por defecto.
+export const locations: RestaurantLocation[] = [
+  {
+    id: 'libertad',
+    name: 'Av. Libertad',
+    address: 'Av. Libertad, Villa Carlos Paz',
+    whatsapp: '5493541574028',
+    coordinates: { lat: -31.41987952849029, lng: -64.49131158026547 },
+    isPrimary: true,
+  },
+  {
+    id: 'uruguay',
+    name: 'Uruguay 579',
+    address: 'Uruguay 579, Villa Carlos Paz',
+    whatsapp: '5493541331653',
+    coordinates: { lat: -31.416293983642454, lng: -64.4928864188588 },
+  },
+]
 
 export const restaurantSettings: RestaurantSettings = {
   name: 'Ranch VCP',
   tagline: 'Lomos con fama · Pizzas excelentes · WhatsApp directo',
   description:
-    'Los mejores lomos Pizzas y hamburguesas en Villa Carlos Paz.',
-  whatsapp: '543541560518',
-  address: 'Villa Carlos Paz',
+    'Los mejores lomos, pizzas y hamburguesas en Villa Carlos Paz.',
+  whatsapp: '5493541574028',
+  address: 'Av. Libertad · Uruguay 579',
   neighborhood: 'Córdoba, Argentina',
   instagram: 'ranch.vcp',
   googleMapsUrl: 'https://maps.google.com/?q=Ranch+VCP+Villa+Carlos+Paz+C%C3%B3rdoba',

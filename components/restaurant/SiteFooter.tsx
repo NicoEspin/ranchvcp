@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { Clock3, Instagram, MapPin, MessageCircle } from 'lucide-react'
 import ranchLogo from '@/app/ranch_logo_clean.svg'
 import { Reveal } from '@/components/motion'
-import { openingHours, restaurantSettings } from '@/lib/mock-data'
-import { generateGeneralMessage } from '@/lib/whatsapp'
+import { locations, openingHours, restaurantSettings } from '@/lib/mock-data'
+import { generateGeneralMessage, getLocationMapsUrl } from '@/lib/whatsapp'
 
 const footerLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/carta', label: 'Carta' },
   { href: '/#reservas', label: 'Reservas' },
-  { href: '/#salon', label: 'Salón' },
+
 ]
 
 const highlightedHours = openingHours.filter((slot) => !slot.isClosed).slice(0, 4)
@@ -21,17 +21,16 @@ export function SiteFooter() {
       <div className="section-shell">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr_0.8fr]">
           <Reveal y={20} className="space-y-5">
-            <div className="flex items-center gap-4">
-              <div className="relative size-14 shrink-0 overflow-hidden rounded-full border border-primary/25 bg-black md:size-16">
+            <Link href="/" className="group flex w-fit items-center gap-4">
+              <div className="relative size-14 shrink-0 overflow-hidden rounded-full border border-primary/25 bg-black transition-[border-color,box-shadow] duration-300 group-hover:border-primary/55 group-hover:shadow-[0_0_22px_rgba(232,184,75,0.18)] md:size-16">
                 <Image src={ranchLogo} alt="Logo de Ranch" fill sizes="64px" />
               </div>
               <div>
-              
-                <p className="mt-1 font-mono text-[0.58rem] uppercase tracking-[0.26em] text-foreground-muted/60">
+                <p className="mt-1 font-mono text-[0.58rem] uppercase tracking-[0.26em] text-foreground-muted/60 transition-colors duration-300 group-hover:text-primary">
                   Villa Carlos Paz · Córdoba
                 </p>
               </div>
-            </div>
+            </Link>
             <p className="max-w-xl text-base leading-7 text-foreground-muted">
               {restaurantSettings.description}
             </p>
@@ -71,19 +70,23 @@ export function SiteFooter() {
           <Reveal y={20} delay={0.18} className="space-y-4">
             <p className="eyebrow">Información</p>
             <div className="space-y-4 text-sm text-foreground-muted">
-              <a
-                href={restaurantSettings.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 transition-colors hover:text-foreground"
-              >
-                <MapPin className="mt-0.5 size-4 text-primary" />
-                <span>
-                  {restaurantSettings.address}
-                  <br />
-                  {restaurantSettings.neighborhood}
-                </span>
-              </a>
+              {locations.map((location) => (
+                <a
+                  key={location.id}
+                  href={getLocationMapsUrl(location)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 transition-colors hover:text-foreground"
+                >
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
+                  <span>
+                    <span className="block font-mono text-[0.6rem] uppercase tracking-[0.22em] text-primary/80">
+                      {location.name}
+                    </span>
+                    {location.address}
+                  </span>
+                </a>
+              ))}
               <div className="flex items-start gap-3">
                 <Clock3 className="mt-0.5 size-4 text-primary" />
                 <div className="space-y-1">

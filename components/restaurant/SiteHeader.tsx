@@ -302,7 +302,7 @@ export function SiteHeader() {
                 className="sh-drawer-navlink"
               >
                 <span>{link.label}</span>
-                <span className="sh-drawer-num">0{i + 1}</span>
+               
               </Link>
             ))}
           </nav>

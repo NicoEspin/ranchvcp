@@ -220,6 +220,12 @@
   }
 }
 
+/* Mapa embebido en modo oscuro: invierte el tile claro de Google y re-rota el
+   matiz para que los colores no queden en negativo. */
+.ranch-map {
+  filter: invert(0.92) hue-rotate(180deg) saturate(0.5) brightness(0.95) contrast(0.92);
+}
+
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -371,6 +377,18 @@
   padding: 0 18px;
   font-size: 0.65rem;
   gap: 7px;
+}
+
+/* Este CTA comparte .cta-primary, que fuerza display:inline-flex y pisaria
+   utilidades como hidden; por eso se controla con una clase especifica. */
+.cta-desktop-only {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .cta-desktop-only {
+    display: inline-flex;
+  }
 }
 
 /* CTA de ancho completo */

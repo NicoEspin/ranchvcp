@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { OrderProvider } from '@/components/restaurant/OrderProvider'
 import { Preloader } from '@/components/restaurant/Preloader'
 import { CursorDot, MotionProvider } from '@/components/motion'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
 const geistSans = Geist({
@@ -59,6 +60,12 @@ export default function RootLayout({
         <MotionProvider>
           <OrderProvider>{children}</OrderProvider>
           <CursorDot />
+          <Toaster
+            position="top-right"
+            visibleToasts={1}
+            offset={20}
+            mobileOffset={{ top: 16, right: 16, left: 16 }}
+          />
         </MotionProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

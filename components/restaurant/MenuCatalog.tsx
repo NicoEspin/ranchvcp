@@ -8,8 +8,8 @@ import burgerImage from '@/stitch/7324317543705053216/downloads/26ac5db54d3b4ae1
 import interiorImage from '@/stitch/7324317543705053216/downloads/daf67fe4f42a47d1870f49dc82e658f9.png'
 import { Magnetic, Reveal } from '@/components/motion'
 import { cartaCopy } from '@/lib/carta-copy'
-import { categories, menuItems, openingHours, restaurantSettings } from '@/lib/mock-data'
-import { generateGeneralMessage } from '@/lib/whatsapp'
+import { categories, locations, menuItems, openingHours, restaurantSettings } from '@/lib/mock-data'
+import { generateGeneralMessage, getLocationMapsUrl } from '@/lib/whatsapp'
 import type { OpeningHour } from '@/types/restaurant'
 import { CategoryStrip } from './CategoryStrip'
 import { MenuItemCard } from './MenuItemCard'
@@ -245,7 +245,7 @@ export function MenuCatalog() {
               <button
                 type="button"
                 onClick={openOrder}
-                className="cta-primary cta-sm hidden shrink-0 md:inline-flex"
+                className="cta-primary cta-sm cta-desktop-only shrink-0"
               >
                 <ShoppingBag className="size-4" />
                 <span>{cartaCopy.orderBar.cta} ({totalItems})</span>
@@ -325,16 +325,22 @@ export function MenuCatalog() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-primary">{cartaCopy.aside.whereLabel}</p>
-                  <p className="mt-1">{restaurantSettings.address}, {restaurantSettings.neighborhood}</p>
-                  <a
-                    href={restaurantSettings.googleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1 inline-flex items-center gap-1 text-xs uppercase tracking-[0.2em] text-foreground transition-colors hover:text-primary"
-                  >
-                    <MapPin className="size-3.5" />
-                    {cartaCopy.aside.mapCta}
-                  </a>
+                  <div className="mt-1 space-y-2">
+                    {locations.map((location) => (
+                      <div key={location.id} className="flex items-baseline justify-between gap-3">
+                        <p className="min-w-0">{location.name}</p>
+                        <a
+                          href={getLocationMapsUrl(location)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex shrink-0 items-center gap-1 text-xs uppercase tracking-[0.2em] text-foreground transition-colors hover:text-primary"
+                        >
+                          <MapPin className="size-3.5" />
+                          {cartaCopy.aside.mapCta}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-primary">{cartaCopy.aside.serviceLabel}</p>

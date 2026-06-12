@@ -41,11 +41,13 @@ import { Textarea } from '@/components/ui/textarea'
 import { useIsMobile } from '@/hooks/use-mobile'
 import type { OrderItem } from '@/types/restaurant'
 import { formatPrice } from '@/lib/formatters'
-import { generateOrderMessage } from '@/lib/whatsapp'
+import { locations } from '@/lib/mock-data'
+import { generateOrderMessage, primaryLocation } from '@/lib/whatsapp'
 
 const orderCheckoutSchema = z
   .object({
     name: z.string().trim().min(1, 'Ingresá tu nombre.'),
+    locationId: z.string().min(1, 'Elegí la sucursal.'),
     orderType: z.enum(['delivery', 'pickup']),
     address: z.string().trim().optional(),
     comment: z.string().trim().optional(),
@@ -86,6 +88,7 @@ export function OrderSummary({
     resolver: zodResolver(orderCheckoutSchema),
     defaultValues: {
       name: '',
+      locationId: primaryLocation.id,
       orderType: 'pickup',
       address: '',
       comment: '',
@@ -101,11 +104,14 @@ export function OrderSummary({
   }, [form, orderType])
 
   const handleSendOrder = (values: OrderCheckoutValues) => {
+    const location =
+      locations.find((candidate) => candidate.id === values.locationId) ?? primaryLocation
     const url = generateOrderMessage({
       items,
       total,
       name: values.name,
       orderType: values.orderType,
+      location,
       address: values.orderType === 'delivery' ? values.address : undefined,
       comment: values.comment,
     })
@@ -338,6 +344,31 @@ function OrderSummaryPanel({
                         <FormLabel>Nombre</FormLabel>
                         <FormControl>
                           <Input {...field} autoComplete="name" placeholder="Tu nombre" className="h-11" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="locationId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Sucursal</FormLabel>
+                        <FormControl>
+                          <Select value={field.value} onValueChange={field.onChange}>
+                            <SelectTrigger className="h-11 w-full">
+                              <SelectValue placeholder="Elegí la sucursal" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {locations.map((location) => (
+                                <SelectItem key={location.id} value={location.id}>
+                                  {location.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

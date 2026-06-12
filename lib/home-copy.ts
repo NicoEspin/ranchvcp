@@ -69,9 +69,9 @@ export const homeCopy = {
   },
   reviews: {
     eyebrow: 'Confianza local',
-    title: ['La gente vuelve', 'y lo recomienda.'],
+    title: ['Lo que dicen', 'nuestros clientes.'],
     description:
-      'Por el lomo, por la pizza, por lo abundante o por lo simple que es pedir por WhatsApp. Lo importante es que Ranch ya tiene nombre ganado en Carlos Paz.',
+      'Por el lomo, por la pizza, por lo abundante o por las burguers. Lo importante es que Ranch ya tiene nombre ganado en Carlos Paz.',
   },
   finalCta: {
     eyebrow: 'El mejor lomo de carlos paz',

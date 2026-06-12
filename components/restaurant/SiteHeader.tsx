@@ -8,7 +8,6 @@ import { MessageCircle } from 'lucide-react'
 import ranchLogo from '@/app/ranch_logo_clean.svg'
 import { cn } from '@/lib/utils'
 import { useLenis } from '@/components/motion'
-import { restaurantSettings } from '@/lib/mock-data'
 import { generateGeneralMessage } from '@/lib/whatsapp'
 
 type NavLink = { href: string; label: string }
